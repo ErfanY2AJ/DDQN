@@ -173,7 +173,45 @@ test_labels=test_labels-1
 dqn = DQN(train_data.shape[1], 4, train_data, train_labels)
 ```
 
+and here we are , in training process we have episodes that each  step series are  taken in one episode . 
 
+- we need to set exploration vast at first and after that exploit the information we need (epsilon_decay_method)
+-  and set learning_rate in a way that our Q updating equation dosent fall on vanishing Gradient
+
+# here we write the training phase 
+``` python
+c=0
+total_rewards = 0
+while c < 1000:
+    indx=np.random.randint(0,train_data.shape[0])
+    # act = train_labels[indx]
+    act = dqn.get_qs(train_data[indx].reshape(1,-1))
+    if np.random.rand() > epsilon:
+        act = np.argmax(act)
+    else:
+        act = np.random.randint(0,3)
+    r = dqn.play(train_data[indx], action=act)
+    dqn.update_replay(train_data[indx],act, train_labels[indx], r)
+    dqn.train()
+    total_rewards = total_rewards + r
+
+    c=c+1
+    if ALPHA > ALPHA_MIN :
+        ALPHA *= ALPHA_DECAY
+    else :
+        ALPHA = ALPHA_MIN
+
+    if epsilon > MIN_EPSILON :
+        epsilon *= epsilon_decay
+    else :
+        epsilon = MIN_EPSILON
+
+    print("Iteration : ",c)
+    print('ϵ : ',epsilon)
+    print('reward : ',r)
+
+    print("=================================================")
+```
 
 
 
