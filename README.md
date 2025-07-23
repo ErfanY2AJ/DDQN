@@ -149,3 +149,33 @@ class DQN():
 
 ```
 
+after that . we just need to prepare our data for training loop process , you can use the following code and you can change it based on your database shape , note that you dont need encoding labels cause we w'll do it on training phase 
+
+``` python 
+train_df = pd.read_csv('/content/train_dataset.csv')
+test_df = pd.read_csv('/content/test_dataset.csv')
+
+# 2. Split into X (features) and y (labels)
+train_data = train_df.iloc[:, :-1].values
+train_labels = train_df.iloc[:, -1].values
+test_data = test_df.iloc[:, :-1].values
+test_labels = test_df.iloc[:, -1].values 
+
+train_data=ssc.fit_transform(train_data)
+# train_data=digitizer.fit_transform(train_data)
+
+test_data=ssc.fit_transform(test_data)
+# test_data=digitizer.fit_transform(test_data)
+
+train_labels=train_labels-1
+test_labels=test_labels-1
+
+dqn = DQN(train_data.shape[1], 4, train_data, train_labels)
+```
+
+
+
+
+
+
+
