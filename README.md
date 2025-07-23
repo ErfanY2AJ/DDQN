@@ -213,7 +213,13 @@ while c < 1000:
     print("=================================================")
 ```
 
+# optional
 
+you can add a code on training loop that collect culumative Reward to plot and bring it on your conclusion 
+just add this at the total_rewards line 
+```python
+cumulative_rewards.append(total_rewards)
+```
 
 
 
