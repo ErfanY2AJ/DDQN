@@ -21,8 +21,8 @@ Example: In active learning, you want to maximize model improvement per label re
 Scenario: Instead of “predicting” a class label, the RL agent is trained to imitate an expert’s classification decisions as a policy.
 
 
-first we need import libraries and parameter used on Q-learning
-````
+# import libraries and parameters
+````python
 import numpy as np
 import pandas as pd
 from keras import layers
